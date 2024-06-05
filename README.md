@@ -1,6 +1,9 @@
 
 # RFCU - Rust Fluent Code Utility
 
+![DALL·E 2024-06-05 14 14 24 - Create a logo for RFCU (Rust Fluent Code Utility)  The logo should feature a clean, modern design with a combination of a rust-colored gear symbolizin copy](https://github.com/njfio/rfcu/assets/7220/1a70041a-dcb4-4688-a730-dd758a5cd52f)
+
+
 **Streamline your Rust development workflow with the power of AI code assistance and automated tasks.**
 
 ## Overview
