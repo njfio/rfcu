@@ -1,0 +1,17 @@
+flowname = "OpusChain"
+language = "rust"
+max_retries = 10
+commit_message_flow = "GroqLLama38bToolAgentRepoCloud"
+documentation_flow = "LocalGoogleFlashChain"
+lint_command = "cargo fmt && cargo clippy"
+
+
+[requests]
+improvement = "\n{user_request}\n Please improve the following function '{structure_name}' without adding new functionalities. Only make improvements to the existing code:\n\n```\n{structure_code}\n```. You are part of a pipeline. Only output the changed code enclosed within triple backticks."
+whole_file = "Please improve the following code without adding new functionalities. Only make improvements to the existing code:\n\n```\n{source_code}\n```. You are part of a pipeline. Only output the changed code enclosed within triple backticks."
+add_tests_function = "Please add unit tests for the following function '{structure_name}':\n\n```\n{structure_code}\n```. You are part of a pipeline. Only output the new unit tests enclosed within triple backticks.  Name the test module after the function. Make sure test functions are aligned to function name too"
+add_functionality = "Please add the following functionality: {user_request} to the code base. You are part of a pipeline. Only output the changed code enclosed within triple backticks. Never output existing functions or other syntax. Only output new code that works in the pipeline."
+documentation_whole_file = "Please generate comprehensive documentation for the entire source code file:\n\n```\n{source_code}\n```.  You are appending just the documentation to the code.  Only output the new documentation enclosed within triple backticks. Do not change or output any functions or other syntax, just output the documentation."
+documentation_structure = " \n{user_request}\n Please generate comprehensive documentation for the following function '{structure_name}':\n\n```\n{structure_code}\n```.  You are inserting just the documentation to the existing start of the existing code.  Only output the new documentation enclosed within triple backticks as request.  Never write functions or other syntax, just output the documentation."
+
+
