@@ -38,7 +38,8 @@ flowname = "your_flow_name"
 commit_message_flow = "your_commit_message_flow_name"
 documentation_flow = "your_documentation_flow_name"
 language = "rust"
-max_retries = 3
+max_retries = 5
+lint_command = "cargo fmt && cargo clippy"
 
 [requests]
 improvement = "Improve this Rust code: ```rust\n{structure_code}\n```\nUser request: {user_request}\nStructure name: {structure_name}"
@@ -48,7 +49,6 @@ add_tests_function = "Add tests for this Rust code: ```rust\n{structure_code}\n`
 documentation_whole_file = "Document this Rust code with a brief description at the top: ```rust\n{source_code}\n```\nUser request: {user_request}"
 documentation_structure = "Document this structure in Rust: ```rust\n{structure_code}\n```\nUser request: {user_request}\nStructure name: {structure_name}"
 
-lint_command = "cargo clippy"
 ```
 
 - **flowname:** The name of the FluentCI flow to use for code improvements.
