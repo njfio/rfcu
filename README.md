@@ -1,4 +1,4 @@
-```markdown
+
 # RFCU - Rust Fluent Code Utility
 
 **Streamline your Rust development workflow with the power of AI code assistance and automated tasks.**
@@ -91,4 +91,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests to h
 ## License
 
 This project is licensed under the MIT License.
-```
+
