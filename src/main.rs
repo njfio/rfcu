@@ -1,5 +1,6 @@
+
+
 use std::fs;
-use std::fs::File;
 use std::io::{self, Read, Write};
 use std::process::{Command, Stdio};
 use clap::Arg;
@@ -13,7 +14,6 @@ extern "C" { fn tree_sitter_rust() -> Language; }
 struct Settings {
     flowname: String,
     commit_message_flow: String,
-    documentation_flow: String,
     language: String,
     requests: Requests,
     lint_command: Option<String>,
@@ -124,7 +124,7 @@ fn main() -> io::Result<()> {
         eprintln!("Reading user input from stdin...");
         let mut stdin_content = String::new();
         io::stdin().read_to_string(&mut stdin_content)?;
-        let mut user_request = stdin_content.trim().to_string();
+        let user_request = stdin_content.trim().to_string();
         eprintln!("User request: {}", user_request);
 
         eprintln!("Initializing parser and setting language: {}", settings.language);
@@ -197,7 +197,7 @@ fn main() -> io::Result<()> {
                 // Find the start byte of the attributes and code above the function
                 let properties_start_byte = find_properties_start_byte(&source_code, start_byte);
 
-                let original_structure = &source_code[properties_start_byte..end_byte];
+                let _original_structure = &source_code[properties_start_byte..end_byte];
                 request = settings.requests.add_functionality.replace("{source_code}", &source_code).replace("{user_request}", &user_request);
             } else {
                 eprintln!("Invalid mode: {}", mode);
@@ -459,14 +459,6 @@ fn find_structure<'a>(node: &'a Node<'a>, structure_name: &str, source_code: &'a
     None
 }
 
-fn find_first_code_line_after_docs(source_code: &str) -> usize {
-    for (i, line) in source_code.lines().enumerate() {
-        if !line.trim().starts_with("*") && !line.trim().starts_with("/") {
-            return source_code.lines().take(i).map(|l| l.len() + 1).sum();
-        }
-    }
-    0
-}
 
 fn improve_structure_with_fluentcli(flowname: &str, request: &str, user_request: &str, source_code_path: &str) -> io::Result<String> {
     eprintln!("Starting fluentcli with flowname: {}, request: {}", flowname, request);
@@ -543,7 +535,7 @@ fn generate_commit_message(file_path: &str, mode: &str, flowname: &str) -> io::R
     eprintln!("Generating detailed commit message using FluentCLI...");
     let request = format!("Generate a commit message for the changes made in {} mode to the file {} on a single line, it should be succinct.", mode, file_path);
 
-    let mut child = Command::new("fluent")
+    let child = Command::new("fluent")
         .arg(flowname)
         .arg(request)
         .stdin(Stdio::piped())
@@ -592,101 +584,6 @@ fn find_struct_node<'a>(node: &'a Node<'a>, struct_name: &str, source_code: &'a 
 
 
 
-fn find_doc_node<'a>(node: &Node<'a>) -> Option<Node<'a>> {
-    let mut cursor = node.walk();
-    let mut prev_node: Option<Node<'a>> = None;
-
-    for child in node.children(&mut cursor) {
-        if child.kind() == "block_comment" {
-            prev_node = Some(child);
-        } else if child.kind() == "function_item" {
-            return prev_node;
-        }
-    }
-
-    None
-}
-
-fn find_doc_range<'a>(node: &Node<'a>, source_code: &'a [u8]) -> Option<(usize, usize)> {
-    let mut cursor = node.walk();
-    let mut doc_start = None;
-    let mut doc_end = None;
-
-    for child in node.children(&mut cursor) {
-        if child.kind() == "block_comment" {
-            if doc_start.is_none() {
-                doc_start = Some(child.start_byte());
-            }
-            doc_end = Some(child.end_byte());
-        } else if child.kind() == "function_item" {
-            break;
-        }
-    }
-
-    if let (Some(start), Some(end)) = (doc_start, doc_end) {
-        Some((start, end))
-    } else {
-        None
-    }
-}
-
-fn find_doc_end(source_code: &str) -> usize {
-    let mut doc_end = 0;
-    for (i, line) in source_code.lines().enumerate() {
-        if line.trim().starts_with("//!") || line.trim().starts_with("/*!") {
-            doc_end = source_code.lines().take(i + 1).map(|l| l.len() + 1).sum();
-        } else if line.trim().starts_with("//") || line.trim().starts_with("/*") {
-            continue;
-        } else {
-            break;
-        }
-    }
-    doc_end
-}
-
-
-
-
-fn find_struct_start<'a>(node: &Node<'a>, source_code: &'a [u8]) -> usize {
-    let mut cursor = node.walk();
-    for child in node.children(&mut cursor) {
-        if child.kind() == "identifier" {
-            return node.start_byte();
-        }
-    }
-    node.start_byte()
-}
-
-fn find_doc_start(source_code: &str, struct_start: usize) -> Option<usize> {
-    let mut doc_start = struct_start;
-    let lines: Vec<&str> = source_code[..struct_start].lines().collect();
-
-    for line in lines.iter().rev() {
-        if line.trim().starts_with("/**") {
-            doc_start = source_code[..struct_start].find(line).unwrap();
-            break;
-        } else if !line.trim().is_empty() {
-            break;
-        }
-    }
-
-    if doc_start < struct_start {
-        Some(doc_start)
-    } else {
-        None
-    }
-}
-
-// Update the find_doc_node function
-fn update_documentation(source_code: &str, struct_range: (usize, usize), improved_structure: &str) -> String {
-    let doc_comment = format!("/**\n{}\n*/", improved_structure.trim());
-    let (struct_start, struct_end) = struct_range;
-    let (doc_start, doc_end) = find_documentation_range(source_code, struct_start);
-
-    let mut updated_code = source_code.to_string();
-    updated_code.replace_range(doc_start..doc_end, &doc_comment);
-    updated_code
-}
 
 fn find_documentation_range(source_code: &str, struct_start: usize) -> (usize, usize) {
     let mut doc_start = struct_start;
@@ -770,137 +667,6 @@ fn find_doc_range_tree_sitter(source_code: &str, language: &Language) -> (usize,
 }
 
 
-fn find_insert_position<'a>(node: Node<'a>, source_code: &'a [u8]) -> usize {
-    let mut cursor = node.walk();
-    let mut prev_node: Option<Node<'a>> = None;
-    for child in node.children(&mut cursor) {
-        if child.kind() == "identifier" {
-            if let Some(prev) = prev_node {
-                if is_terminating_node(&prev) {
-                    return prev.end_byte();
-                }
-            }
-            return node.start_byte();
-        }
-        prev_node = Some(child);
-    }
-    if let Some(prev) = prev_node {
-        if is_terminating_node(&prev) {
-            return prev.end_byte();
-        }
-    }
-    node.start_byte()
-}
-
-fn is_terminating_node(node: &Node) -> bool {
-    match node.kind() {
-        "]" | ")" | "}" | ";" => true,
-        _ => false,
-    }
-}
-
-fn insert_test_functions(source_code: &str, test_functions: &str) -> String {
-    let mut updated_code = source_code.to_string();
-
-    // Check if a #[cfg(test)] block already exists
-    if let Some((test_block_start, test_block_end)) = find_cfg_test_block(&source_code) {
-        let start_line = source_code[..test_block_start].lines().count();
-        let end_line = source_code[..test_block_end].lines().count();
-        eprintln!("Existing #[cfg(test)] block found at byte range: {} - {}", test_block_start, test_block_end);
-        eprintln!("Existing #[cfg(test)] block found at line range: {} - {}", start_line, end_line);
-        eprintln!("Inserting test functions into the existing block...");
-
-        eprintln!("Content being inserted:\n{}", test_functions);
-        eprintln!("Insertion point: {}", test_block_end - 1);
-
-        updated_code.insert_str(test_block_end - 1, &format!("\n\n{}\n", test_functions));
-    } else {
-        eprintln!("No #[cfg(test)] block found.");
-        eprintln!("Creating a new #[cfg(test)] block and inserting test functions...");
-
-        // Find the last function in the source code
-        if let Some((last_fn_start, last_fn_end)) = find_last_function(&source_code) {
-            let start_line = source_code[..last_fn_start].lines().count();
-            let end_line = source_code[..last_fn_end].lines().count();
-            eprintln!("Last function found at byte range: {} - {}", last_fn_start, last_fn_end);
-            eprintln!("Last function found at line range: {} - {}", start_line, end_line);
-
-            eprintln!("Content being inserted:\n{}", test_functions);
-            eprintln!("Insertion point: {}", last_fn_end);
-
-            updated_code.insert_str(last_fn_end, &format!("\n\n#[cfg(test)]\nmod tests {{\n{}\n}}\n", test_functions));
-        } else {
-            eprintln!("No functions found in the source code.");
-            eprintln!("Appending test functions at the end of the file...");
-
-            eprintln!("Content being inserted:\n{}", test_functions);
-            eprintln!("Insertion point: {}", source_code.len());
-
-            updated_code.push_str(&format!("\n\n#[cfg(test)]\nmod tests {{\n{}\n}}\n", test_functions));
-        }
-    }
-
-    updated_code
-}
-
-fn find_cfg_test_block(source_code: &str) -> Option<(usize, usize)> {
-    let mut parser = Parser::new();
-    let language = unsafe { tree_sitter_rust() };
-    parser.set_language(&language).expect("Error setting language");
-    let tree = parser.parse(source_code, None).expect("Error parsing source code");
-    let root_node = tree.root_node();
-
-    eprintln!("Searching for #[cfg(test)] block...");
-
-    let mut cursor = root_node.walk();
-    for node in root_node.children(&mut cursor) {
-        if node.kind() == "attribute_item" {
-            let attribute_text = node.utf8_text(source_code.as_bytes()).unwrap();
-            eprintln!("Found attribute: {}", attribute_text);
-            if attribute_text.contains("#[cfg(test)]") {
-                eprintln!("Found #[cfg(test)] attribute");
-                if let Some(sibling) = node.next_sibling() {
-                    eprintln!("Next sibling kind: {}", sibling.kind());
-                    if sibling.kind() == "mod_item" {
-                        eprintln!("Found #[cfg(test)] block");
-                        return Some((sibling.start_byte(), sibling.end_byte()));
-                    }
-                }
-            }
-        }
-    }
-
-    eprintln!("No #[cfg(test)] block found");
-    None
-
-
-}
-
-fn find_last_function(source_code: &str) -> Option<(usize, usize)> {
-    let mut parser = Parser::new();
-    let language = unsafe { tree_sitter_rust() };
-    parser.set_language(&language).expect("Error setting language");
-    let tree = parser.parse(source_code, None).expect("Error parsing source code");
-    let root_node = tree.root_node();
-
-    eprintln!("Searching for the last function...");
-
-    let mut last_fn_range = None;
-    let mut cursor = root_node.walk();
-    for node in root_node.children(&mut cursor) {
-        if node.kind() == "function_item" {
-            eprintln!("Found function: {}", node.utf8_text(source_code.as_bytes()).unwrap());
-            last_fn_range = Some((node.start_byte(), node.end_byte()));
-        }
-    }
-
-    if last_fn_range.is_none() {
-        eprintln!("No functions found");
-    }
-
-    last_fn_range
-}
-
 fn find_properties_start_byte(source_code: &str, start_byte: usize) -> usize {
     let mut properties_start_byte = start_byte;
     let mut found_closing_brace = false;
@@ -919,24 +685,6 @@ fn find_properties_start_byte(source_code: &str, start_byte: usize) -> usize {
     }
 
     properties_start_byte
-}
-
-fn find_doc_end_tree_sitter(source_code: &str, language: &Language) -> usize {
-    let mut parser = Parser::new();
-    parser.set_language(language).expect("Error setting language");
-    let tree = parser.parse(source_code, None).expect("Error parsing source code");
-    let root_node = tree.root_node();
-
-    let mut doc_end = 0;
-    let mut cursor = root_node.walk();
-    for node in root_node.children(&mut cursor) {
-        if node.kind() == "comment" {
-            doc_end = node.end_byte();
-        } else {
-            break;
-        }
-    }
-    doc_end
 }
 
 
