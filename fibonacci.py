@@ -37,20 +37,26 @@ def count_primes_in_sequence(sequence):
 
 def main():
     """Main function to execute the program."""
-    try:
-        n = int(input("Enter the number of Fibonacci terms: "))
-        if n <= 0:
-            print("Please enter a positive integer.")
-            return
+    while True:
+        try:
+            n = int(input("Enter the number of Fibonacci terms: "))
+            if n <= 0:
+                print("Please enter a positive integer.")
+                continue
 
-        fib_sequence = fibonacci_sequence(n)
-        prime_count = count_primes_in_sequence(fib_sequence)
+            fib_sequence = fibonacci_sequence(n)
+            prime_count = count_primes_in_sequence(fib_sequence)
+            prime_numbers = calculate_primes_in_fibonacci(n)
 
-        print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
-        print(f"Number of prime numbers in the sequence: {prime_count}")
+            print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
+            print(f"Number of prime numbers in the sequence: {prime_count}")
+            print(f"Prime numbers in the sequence: {prime_numbers}")
 
-    except ValueError:
-        print("Invalid input. Please enter an integer.")
+            plot_fibonacci_sequence(n)
+            break
+
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
 
 
 if __name__ == "__main__":
