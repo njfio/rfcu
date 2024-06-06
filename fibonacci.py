@@ -232,9 +232,34 @@ def main():
                 print("Please enter a positive integer.")
                 continue
 
-            # ... existing code ...
+            fib_sequence = fibonacci_sequence(n)
+            prime_count = count_primes_in_sequence(fib_sequence)
+            prime_numbers = calculate_primes_in_fibonacci(n)
 
-            animate_fibonacci_primes(n, interval=100)
+            print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
+            print(f"Number of prime numbers in the sequence: {prime_count}")
+            print(f"Prime numbers in the sequence: {prime_numbers}")
+
+            plot_fibonacci_sequence(n)
+            plot_fibonacci_spiral(fib_sequence)
+
+            animate_choice = input(
+                "Do you want to see the Fibonacci sequence growth animation with primes? (y/n): "
+            )
+            if animate_choice.lower() == "y":
+                interval = 100
+                try:
+                    interval = int(
+                        input(
+                            "Enter the animation interval in milliseconds (default is 100): "
+                        )
+                    )
+                except ValueError:
+                    print(
+                        "Invalid interval. Using the default value of 100 milliseconds."
+                    )
+                animate_fibonacci_primes(n, interval)
+
             break
 
         except ValueError:
