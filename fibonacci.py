@@ -223,6 +223,35 @@ def animate_fibonacci_primes(n, interval=100):
     plt.show()
 
 
+def animate_fibonacci_primes_fractal(n, interval=100):
+    """Animate the prime numbers in the Fibonacci sequence as a fractal."""
+    fig, ax = plt.subplots()
+    ax.set_xlim(-1, 1)
+    ax.set_ylim(-1, 1)
+    ax.set_aspect("equal")
+    ax.axis("off")
+
+    (fractal_plot,) = ax.plot(
+        [], [], marker="o", linestyle="", color="blue", markersize=2
+    )
+
+    def update(frame):
+        fib_sequence = fibonacci_sequence(frame)
+        primes = [num for num in fib_sequence if is_prime(num)]
+
+        angles = np.linspace(0, 2 * np.pi, len(primes))
+        radius = np.sqrt(primes)
+        x = np.cos(angles) * radius / np.max(radius)
+        y = np.sin(angles) * radius / np.max(radius)
+
+        fractal_plot.set_data(x, y)
+
+        return (fractal_plot,)
+
+    anim = FuncAnimation(fig, update, frames=n, interval=interval, blit=True)
+    plt.show()
+
+
 def main():
     """Main function to execute the program."""
     while True:
@@ -267,32 +296,6 @@ def main():
 
 
 from matplotlib.animation import FuncAnimation
-
-
-def main():
-    """Main function to execute the program."""
-    while True:
-        try:
-            n = int(input("Enter the number of Fibonacci terms: "))
-            if n <= 0:
-                print("Please enter a positive integer.")
-                continue
-
-            fib_sequence = fibonacci_sequence(n)
-            prime_count = count_primes_in_sequence(fib_sequence)
-            prime_numbers = calculate_primes_in_fibonacci(n)
-
-            print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
-            print(f"Number of prime numbers in the sequence: {prime_count}")
-            print(f"Prime numbers in the sequence: {prime_numbers}")
-
-            plot_fibonacci_sequence(n)
-            plot_fibonacci_spiral(fib_sequence)
-            break
-
-        except ValueError:
-            print("Invalid input. Please enter an integer.")
-
 
 if __name__ == "__main__":
     main()
