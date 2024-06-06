@@ -1,3 +1,45 @@
+"""
+This script demonstrates various operations related to the Fibonacci sequence and prime numbers.
+
+Functions:
+- is_prime(num): Checks if a number is prime.
+- fibonacci_sequence(n): Generates the Fibonacci sequence up to n terms.
+- count_primes_in_sequence(sequence): Counts the number of prime numbers in a given sequence.
+- calculate_primes_in_fibonacci(n): Calculates the prime numbers in the Fibonacci sequence up to n terms.
+- plot_fibonacci_sequence(n): Plots the Fibonacci sequence up to n terms.
+- plot_fibonacci_spiral(sequence): Plots the Fibonacci sequence as a spiral.
+- main(): The main function that executes the program.
+
+Usage:
+1. Run the script.
+2. Enter the number of Fibonacci terms you want to generate.
+3. The script will display the following:
+   - The Fibonacci sequence up to the specified number of terms.
+   - The number of prime numbers in the sequence.
+   - The prime numbers in the sequence.
+4. The script will then plot two graphs:
+   - A line plot of the Fibonacci sequence.
+   - A spiral plot of the Fibonacci sequence.
+
+Dependencies:
+- matplotlib: Used for plotting graphs.
+- numpy: Used for mathematical operations and generating arrays.
+
+Note:
+- The script assumes that the user will input a valid positive integer for the number of Fibonacci terms.
+- If an invalid input is provided, the script will prompt the user to enter a valid integer.
+- The script uses the `is_prime` function to check if a number is prime.
+- The `count_primes_in_sequence` function counts the number of prime numbers in a given sequence.
+- The `calculate_primes_in_fibonacci` function calculates the prime numbers in the Fibonacci sequence.
+- The `plot_fibonacci_sequence` function plots the Fibonacci sequence as a line plot.
+- The `plot_fibonacci_spiral` function plots the Fibonacci sequence as a spiral.
+
+Example:
+Enter the number of Fibonacci terms: 10
+Fibonacci sequence up to 10 terms: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+Number of prime numbers in the sequence: 3
+Prime numbers in the sequence: [2, 3, 5]
+"""
 """This is my doc string
 """
 
