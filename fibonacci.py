@@ -272,22 +272,43 @@ def main():
             plot_fibonacci_sequence(n)
             plot_fibonacci_spiral(fib_sequence)
 
-            animate_choice = input(
-                "Do you want to see the Fibonacci sequence growth animation with primes? (y/n): "
-            )
-            if animate_choice.lower() == "y":
-                interval = 100
-                try:
-                    interval = int(
-                        input(
-                            "Enter the animation interval in milliseconds (default is 100): "
+            while True:
+                animate_choice = input(
+                    "Select an animation to display:\n"
+                    "1. Fibonacci sequence growth with primes\n"
+                    "2. Prime numbers in the Fibonacci sequence as a fractal\n"
+                    "Enter your choice (1 or 2), or press Enter to skip: "
+                )
+                if animate_choice == "":
+                    break
+                elif animate_choice == "1":
+                    interval = 100
+                    try:
+                        interval = int(
+                            input(
+                                "Enter the animation interval in milliseconds (default is 100): "
+                            )
                         )
-                    )
-                except ValueError:
-                    print(
-                        "Invalid interval. Using the default value of 100 milliseconds."
-                    )
-                animate_fibonacci_primes(n, interval)
+                    except ValueError:
+                        print(
+                            "Invalid interval. Using the default value of 100 milliseconds."
+                        )
+                    animate_fibonacci_primes(n, interval)
+                elif animate_choice == "2":
+                    interval = 100
+                    try:
+                        interval = int(
+                            input(
+                                "Enter the animation interval in milliseconds (default is 100): "
+                            )
+                        )
+                    except ValueError:
+                        print(
+                            "Invalid interval. Using the default value of 100 milliseconds."
+                        )
+                    animate_fibonacci_primes_fractal(n, interval)
+                else:
+                    print("Invalid choice. Please enter 1, 2, or press Enter to skip.")
 
             break
 
