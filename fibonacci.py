@@ -72,7 +72,8 @@ def plot_fibonacci_spiral(sequence):
     y = np.sin(angles) * radius
 
     plt.figure(figsize=(8, 8))
-    plt.plot(x, y, linestyle="-", color="blue")
+    plt.plot(x, y, color="blue")
+    plt.fill(x, y, color="blue", alpha=0.3)
     plt.axis("equal")
     plt.title("Fibonacci Spiral")
     plt.grid(False)
