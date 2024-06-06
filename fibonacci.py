@@ -168,6 +168,43 @@ Note:
 """
 
 
+"""
+Generate the Fibonacci sequence up to n terms.
+
+Parameters:
+    n (int): The number of terms to generate in the Fibonacci sequence.
+
+Returns:
+    list: A list containing the Fibonacci sequence up to n terms.
+
+Description:
+    This function generates the Fibonacci sequence up to n terms. The Fibonacci sequence
+    is a series of numbers in which each number is the sum of the two preceding ones.
+    The sequence starts with 0 and 1, and each subsequent number is the sum of the
+    previous two numbers.
+
+    The function uses a while loop to generate the sequence. It starts with the initial
+    values a=0 and b=1, and appends a to the sequence in each iteration. Then, it updates
+    a and b according to the Fibonacci formula: a, b = b, a + b. The loop continues until
+    the length of the sequence reaches n.
+
+    Finally, the function returns the generated Fibonacci sequence as a list.
+
+Example:
+    >>> fibonacci_sequence(7)
+    [0, 1, 1, 2, 3, 5, 8]
+
+    >>> fibonacci_sequence(10)
+    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+Note:
+    - The function assumes that n is a non-negative integer.
+    - If n is 0, the function will return an empty list.
+    - If n is 1, the function will return [0].
+    - If n is 2, the function will return [0, 1].
+"""
+
+
 def fibonacci_sequence(n):
     """Generate Fibonacci sequence up to n terms."""
     sequence = []
