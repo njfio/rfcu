@@ -1,11 +1,5 @@
-
-
 """This is my doc string
 """
-
-
-
-
 
 
 def is_prime(num):
@@ -32,7 +26,6 @@ def fibonacci_sequence(n):
     return sequence
 
 
-
 """
 Count the number of prime numbers in a given sequence.
 
@@ -57,6 +50,8 @@ Note:
     The function assumes the existence of an `is_prime` function that takes a number as input
     and returns `True` if the number is prime, and `False` otherwise.
 """
+
+
 def count_primes_in_sequence(sequence):
     """Count prime numbers in a given sequence."""
     count = 0
