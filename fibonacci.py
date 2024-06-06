@@ -60,6 +60,24 @@ def plot_fibonacci_sequence(n):
     plt.show()
 
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+def plot_fibonacci_spiral(sequence):
+    """Plot the Fibonacci sequence as a spiral."""
+    angles = np.linspace(0, np.pi * 2 * len(sequence), len(sequence))
+    x = np.cos(angles) * sequence
+    y = np.sin(angles) * sequence
+
+    plt.figure(figsize=(8, 8))
+    plt.plot(x, y, linestyle="-", color="blue")
+    plt.axis("equal")
+    plt.title("Fibonacci Spiral")
+    plt.grid(False)
+    plt.show()
+
+
 def main():
     """Main function to execute the program."""
     while True:
