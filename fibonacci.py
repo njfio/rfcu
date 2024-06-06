@@ -84,6 +84,39 @@ Note: The program requires the `matplotlib` and `numpy` libraries to be installe
 
 
 def is_prime(num):
+    """
+    Check if a number is a prime number.
+
+    This function takes a number as input and determines whether it is a prime number or not.
+    It returns True if the number is prime and False otherwise.
+
+    Parameters:
+    - num (int): The number to be checked for primality.
+
+    Returns:
+    - bool: True if the number is prime, False otherwise.
+
+    Algorithm:
+    1. If the number is less than or equal to 1, it is not prime, so return False.
+    2. If the number is 2, it is prime, so return True.
+    3. If the number is even and not 2, it is not prime, so return False.
+    4. Iterate from 3 to the square root of the number (inclusive) with a step of 2:
+       - If the number is divisible by the current value, it is not prime, so return False.
+    5. If the loop completes without finding any divisors, the number is prime, so return True.
+
+    Note:
+    - The function uses an efficient approach by checking divisibility only up to the square root of the number.
+    - It skips even numbers (except 2) since they are not prime.
+
+    Example:
+    >>> is_prime(7)
+    True
+    >>> is_prime(12)
+    False
+    """
+
+
+def is_prime(num):
     """Check if a number is a prime number."""
     if num <= 1:
         return False
