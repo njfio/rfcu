@@ -67,8 +67,9 @@ import numpy as np
 def plot_fibonacci_spiral(sequence):
     """Plot the Fibonacci sequence as a spiral."""
     angles = np.linspace(0, np.pi * 2 * len(sequence), len(sequence))
-    x = np.cos(angles) * sequence
-    y = np.sin(angles) * sequence
+    radius = np.sqrt(sequence)  # Use square root of sequence values as radius
+    x = np.cos(angles) * radius
+    y = np.sin(angles) * radius
 
     plt.figure(figsize=(8, 8))
     plt.plot(x, y, linestyle="-", color="blue")
