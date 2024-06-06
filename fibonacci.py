@@ -1,3 +1,6 @@
+"""This is my doc string
+"""
+
 
 def is_prime(num):
     """Check if a number is a prime number."""
@@ -12,6 +15,7 @@ def is_prime(num):
             return False
     return True
 
+
 def fibonacci_sequence(n):
     """Generate Fibonacci sequence up to n terms."""
     sequence = []
@@ -21,6 +25,7 @@ def fibonacci_sequence(n):
         a, b = b, a + b
     return sequence
 
+
 def count_primes_in_sequence(sequence):
     """Count prime numbers in a given sequence."""
     count = 0
@@ -29,6 +34,7 @@ def count_primes_in_sequence(sequence):
             count += 1
     return count
 
+
 def main():
     """Main function to execute the program."""
     try:
@@ -36,15 +42,16 @@ def main():
         if n <= 0:
             print("Please enter a positive integer.")
             return
-        
+
         fib_sequence = fibonacci_sequence(n)
         prime_count = count_primes_in_sequence(fib_sequence)
-        
+
         print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
         print(f"Number of prime numbers in the sequence: {prime_count}")
-        
+
     except ValueError:
         print("Invalid input. Please enter an integer.")
+
 
 if __name__ == "__main__":
     main()
@@ -57,19 +64,19 @@ def calculate_primes_in_fibonacci(n):
     return primes
 
 
-
 import matplotlib.pyplot as plt
 
-def plot_fibonacci_sequence(sequence):
-    """Plot the Fibonacci sequence using a line graph."""
-    terms = list(range(1, len(sequence) + 1))
-    plt.plot(terms, sequence)
-    plt.xlabel('Term')
-    plt.ylabel('Value')
-    plt.title('Fibonacci Sequence')
-    plt.show()
-print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
-        print(f"Number of prime numbers in the sequence: {prime_count}")
-        
-        plot_fibonacci_sequence(fib_sequence)
 
+def plot_fibonacci_sequence(n):
+    """Plot the Fibonacci sequence up to n terms."""
+    sequence = fibonacci_sequence(n)
+    x = list(range(1, n + 1))
+    y = sequence
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(x, y, marker="o", linestyle="-", color="blue")
+    plt.xlabel("Term")
+    plt.ylabel("Value")
+    plt.title("Fibonacci Sequence")
+    plt.grid(True)
+    plt.show()
