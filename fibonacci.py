@@ -1,3 +1,4 @@
+
 """This is my doc string
 """
 
@@ -26,6 +27,31 @@ def fibonacci_sequence(n):
     return sequence
 
 
+
+"""
+Count the number of prime numbers in a given sequence.
+
+Parameters:
+    sequence (list): A sequence of numbers.
+
+Returns:
+    int: The count of prime numbers in the sequence.
+
+Description:
+    This function takes a sequence of numbers as input and counts the number of prime numbers
+    present in the sequence. It iterates over each number in the sequence and uses the `is_prime`
+    function to check if the number is prime. If a number is prime, the count is incremented.
+    Finally, the function returns the total count of prime numbers in the sequence.
+
+Example:
+    >>> sequence = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    >>> count_primes_in_sequence(sequence)
+    4
+
+Note:
+    The function assumes the existence of an `is_prime` function that takes a number as input
+    and returns `True` if the number is prime, and `False` otherwise.
+"""
 def count_primes_in_sequence(sequence):
     """Count prime numbers in a given sequence."""
     count = 0
