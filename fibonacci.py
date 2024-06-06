@@ -215,6 +215,65 @@ The program provides a user-friendly interface through the `main` function. It p
 The program includes error handling to ensure that the user enters a valid positive integer for the number of Fibonacci terms. It provides informative error messages and prompts the user to enter a valid input.
 
 Overall, this program offers a comprehensive exploration of the Fibonacci sequence and its relationship with prime numbers. It provides functions to generate and analyze the sequence, as well as visualizations to aid in understanding the patterns and growth of the Fibonacci sequence.
+
+The program utilizes the following libraries:
+- `matplotlib.pyplot`: Used for creating visualizations of the Fibonacci sequence.
+- `numpy`: Used for generating angles and radii for the Fibonacci spiral plot.
+
+The program consists of the following functions:
+
+1. `is_prime(num)`: Checks if a given number is prime.
+2. `fibonacci_sequence(n)`: Generates the Fibonacci sequence up to a specified number of terms.
+3. `count_primes_in_sequence(sequence)`: Counts the number of prime numbers in a given sequence.
+4. `calculate_primes_in_fibonacci(n)`: Calculates the prime numbers in the Fibonacci sequence up to a specified number of terms.
+5. `plot_fibonacci_sequence(n)`: Plots the Fibonacci sequence as a line plot with markers.
+6. `plot_fibonacci_spiral(sequence)`: Plots the Fibonacci sequence as a spiral plot.
+7. `main()`: The main function that executes the program and handles user input.
+
+To run the program, simply execute the `main()` function. The program will prompt the user to enter the desired number of Fibonacci terms and will generate the corresponding Fibonacci sequence, count the prime numbers in the sequence, calculate the specific prime numbers, and display the results. It will also generate visualizations of the Fibonacci sequence as a line plot and a spiral plot.
+
+Note: The program requires the `matplotlib` and `numpy` libraries to be installed for the visualization functionality to work properly.
+"""
+"""
+This program focuses on the Fibonacci sequence and prime numbers, providing a comprehensive set of functions to generate, analyze, and visualize the Fibonacci sequence and its relationship with prime numbers.
+
+The main features of the program include:
+
+1. Generating the Fibonacci sequence:
+   - The `fibonacci_sequence` function generates the Fibonacci sequence up to a specified number of terms.
+   - It uses a simple iterative approach to calculate each term of the sequence.
+
+2. Checking for prime numbers:
+   - The `is_prime` function determines whether a given number is prime or not.
+   - It efficiently checks for divisibility by iterating up to the square root of the number.
+
+3. Counting prime numbers in a sequence:
+   - The `count_primes_in_sequence` function counts the number of prime numbers in a given sequence.
+   - It iterates over each number in the sequence and uses the `is_prime` function to check for primality.
+
+4. Calculating prime numbers in the Fibonacci sequence:
+   - The `calculate_primes_in_fibonacci` function calculates the prime numbers present in the Fibonacci sequence up to a specified number of terms.
+   - It generates the Fibonacci sequence using the `fibonacci_sequence` function and then filters out the prime numbers using the `is_prime` function.
+
+5. Plotting the Fibonacci sequence:
+   - The `plot_fibonacci_sequence` function plots the Fibonacci sequence as a line plot with markers.
+   - It uses the matplotlib library to create a visual representation of the sequence, displaying the term numbers on the x-axis and the corresponding Fibonacci values on the y-axis.
+
+6. Plotting the Fibonacci spiral:
+   - The `plot_fibonacci_spiral` function plots the Fibonacci sequence as a spiral plot.
+   - It calculates the angles and radii based on the sequence values and uses the matplotlib library to create a spiral representation of the sequence.
+
+The program provides a user-friendly interface through the `main` function. It prompts the user to enter the desired number of Fibonacci terms and performs the following steps:
+
+1. Generates the Fibonacci sequence up to the specified number of terms.
+2. Counts the number of prime numbers in the generated sequence.
+3. Calculates the specific prime numbers present in the sequence.
+4. Displays the generated Fibonacci sequence, the count of prime numbers, and the prime numbers found in the sequence.
+5. Plots the Fibonacci sequence as a line plot and a spiral plot using the matplotlib library.
+
+The program includes error handling to ensure that the user enters a valid positive integer for the number of Fibonacci terms. It provides informative error messages and prompts the user to enter a valid input.
+
+Overall, this program offers a comprehensive exploration of the Fibonacci sequence and its relationship with prime numbers. It provides functions to generate and analyze the sequence, as well as visualizations to aid in understanding the patterns and growth of the Fibonacci sequence.
 """
 """
 This program focuses on the Fibonacci sequence and prime numbers. It provides functions to generate the Fibonacci sequence, check if a number is prime, count prime numbers in a sequence, and calculate prime numbers in the Fibonacci sequence.
