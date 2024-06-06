@@ -35,6 +35,31 @@ def count_primes_in_sequence(sequence):
     return count
 
 
+def calculate_primes_in_fibonacci(n):
+    """Calculate prime numbers in the Fibonacci sequence up to n terms."""
+    fib_sequence = fibonacci_sequence(n)
+    primes = [num for num in fib_sequence if is_prime(num)]
+    return primes
+
+
+import matplotlib.pyplot as plt
+
+
+def plot_fibonacci_sequence(n):
+    """Plot the Fibonacci sequence up to n terms."""
+    sequence = fibonacci_sequence(n)
+    x = list(range(1, n + 1))
+    y = sequence
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(x, y, marker="o", linestyle="-", color="blue")
+    plt.xlabel("Term")
+    plt.ylabel("Value")
+    plt.title("Fibonacci Sequence")
+    plt.grid(True)
+    plt.show()
+
+
 def main():
     """Main function to execute the program."""
     while True:
@@ -62,27 +87,19 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-def calculate_primes_in_fibonacci(n):
-    """Calculate prime numbers in the Fibonacci sequence up to n terms."""
-    fib_sequence = fibonacci_sequence(n)
-    primes = [num for num in fib_sequence if is_prime(num)]
-    return primes
-
-
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-def plot_fibonacci_sequence(n):
-    """Plot the Fibonacci sequence up to n terms."""
-    sequence = fibonacci_sequence(n)
-    x = list(range(1, n + 1))
-    y = sequence
+def plot_fibonacci_spiral(sequence):
+    """Plot the Fibonacci sequence as a spiral."""
+    angles = np.linspace(0, np.pi * 2 * len(sequence), len(sequence))
+    x = np.cos(angles) * sequence
+    y = np.sin(angles) * sequence
 
-    plt.figure(figsize=(10, 6))
-    plt.plot(x, y, marker="o", linestyle="-", color="blue")
-    plt.xlabel("Term")
-    plt.ylabel("Value")
-    plt.title("Fibonacci Sequence")
-    plt.grid(True)
+    plt.figure(figsize=(8, 8))
+    plt.plot(x, y, linestyle="-", color="blue")
+    plt.axis("equal")
+    plt.title("Fibonacci Spiral")
+    plt.grid(False)
     plt.show()
