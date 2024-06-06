@@ -78,48 +78,6 @@ calculate prime numbers in the sequence, and plot the graphs.
 This script provides a comprehensive demonstration of working with the Fibonacci sequence, prime numbers,
 and visualizing the sequence using line plots and spirals.
 """
-"""
-This script demonstrates various operations related to the Fibonacci sequence and prime numbers.
-
-Functions:
-- is_prime(num): Checks if a number is prime.
-- fibonacci_sequence(n): Generates the Fibonacci sequence up to n terms.
-- count_primes_in_sequence(sequence): Counts the number of prime numbers in a given sequence.
-- calculate_primes_in_fibonacci(n): Calculates the prime numbers in the Fibonacci sequence up to n terms.
-- plot_fibonacci_sequence(n): Plots the Fibonacci sequence up to n terms.
-- plot_fibonacci_spiral(sequence): Plots the Fibonacci sequence as a spiral.
-- main(): The main function that executes the program.
-
-Usage:
-1. Run the script.
-2. Enter the number of Fibonacci terms you want to generate.
-3. The script will display the following:
-   - The Fibonacci sequence up to the specified number of terms.
-   - The number of prime numbers in the sequence.
-   - The prime numbers in the sequence.
-4. The script will then plot two graphs:
-   - A line plot of the Fibonacci sequence.
-   - A spiral plot of the Fibonacci sequence.
-
-Dependencies:
-- matplotlib: Used for plotting graphs.
-- numpy: Used for mathematical operations and generating arrays.
-
-Note:
-- The script assumes that the user will input a valid positive integer for the number of Fibonacci terms.
-- If an invalid input is provided, the script will prompt the user to enter a valid integer.
-- The script uses the `is_prime` function to check if a number is prime.
-- The `count_primes_in_sequence` function counts the number of prime numbers in a given sequence.
-- The `calculate_primes_in_fibonacci` function calculates the prime numbers in the Fibonacci sequence.
-- The `plot_fibonacci_sequence` function plots the Fibonacci sequence as a line plot.
-- The `plot_fibonacci_spiral` function plots the Fibonacci sequence as a spiral.
-
-Example:
-Enter the number of Fibonacci terms: 10
-Fibonacci sequence up to 10 terms: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-Number of prime numbers in the sequence: 3
-Prime numbers in the sequence: [2, 3, 5]
-"""
 
 
 def is_prime(num):
@@ -134,6 +92,43 @@ def is_prime(num):
         if num % i == 0:
             return False
     return True
+
+
+"""
+Generate the Fibonacci sequence up to n terms.
+
+Parameters:
+    n (int): The number of terms to generate in the Fibonacci sequence.
+
+Returns:
+    list: A list containing the Fibonacci sequence up to n terms.
+
+Description:
+    This function generates the Fibonacci sequence up to n terms. The Fibonacci sequence
+    is a series of numbers in which each number is the sum of the two preceding ones.
+    The sequence starts with 0 and 1, and each subsequent number is the sum of the
+    previous two numbers.
+
+    The function uses a while loop to generate the sequence. It starts with the initial
+    values a=0 and b=1, and appends a to the sequence in each iteration. Then, it updates
+    a and b according to the Fibonacci formula: a, b = b, a + b. The loop continues until
+    the length of the sequence reaches n.
+
+    Finally, the function returns the generated Fibonacci sequence as a list.
+
+Example:
+    >>> fibonacci_sequence(7)
+    [0, 1, 1, 2, 3, 5, 8]
+
+    >>> fibonacci_sequence(10)
+    [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+
+Note:
+    - The function assumes that n is a non-negative integer.
+    - If n is 0, the function will return an empty list.
+    - If n is 1, the function will return [0].
+    - If n is 2, the function will return [0, 1].
+"""
 
 
 def fibonacci_sequence(n):
