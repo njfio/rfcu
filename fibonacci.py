@@ -56,3 +56,20 @@ def calculate_primes_in_fibonacci(n):
     primes = [num for num in fib_sequence if is_prime(num)]
     return primes
 
+
+
+import matplotlib.pyplot as plt
+
+def plot_fibonacci_sequence(sequence):
+    """Plot the Fibonacci sequence using a line graph."""
+    terms = list(range(1, len(sequence) + 1))
+    plt.plot(terms, sequence)
+    plt.xlabel('Term')
+    plt.ylabel('Value')
+    plt.title('Fibonacci Sequence')
+    plt.show()
+print(f"Fibonacci sequence up to {n} terms: {fib_sequence}")
+        print(f"Number of prime numbers in the sequence: {prime_count}")
+        
+        plot_fibonacci_sequence(fib_sequence)
+
