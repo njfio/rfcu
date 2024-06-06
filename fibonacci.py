@@ -194,6 +194,56 @@ def plot_fibonacci_spiral(sequence):
     plt.show()
 
 
+def animate_fibonacci_primes(n, interval=100):
+    """Animate the Fibonacci sequence growth mixed with primes."""
+    fig, ax = plt.subplots()
+    ax.set_xlim(0, n)
+    ax.set_ylim(0, fibonacci_sequence(n)[-1])
+    ax.set_xlabel("Term")
+    ax.set_ylabel("Value")
+    ax.set_title("Fibonacci Sequence Growth with Primes")
+    ax.grid(True)
+
+    (fib_plot,) = ax.plot([], [], marker="o", linestyle="-", color="blue")
+    (prime_plot,) = ax.plot(
+        [], [], marker="o", linestyle="", color="red", markersize=10
+    )
+
+    def update(frame):
+        fib_sequence = fibonacci_sequence(frame)
+        fib_plot.set_data(list(range(1, frame + 1)), fib_sequence)
+
+        primes = [i for i in range(1, frame + 1) if is_prime(fibonacci_sequence(i)[-1])]
+        prime_fib_values = [fibonacci_sequence(i)[-1] for i in primes]
+        prime_plot.set_data(primes, prime_fib_values)
+
+        return fib_plot, prime_plot
+
+    anim = FuncAnimation(fig, update, frames=n, interval=interval, blit=True)
+    plt.show()
+
+
+def main():
+    """Main function to execute the program."""
+    while True:
+        try:
+            n = int(input("Enter the number of Fibonacci terms: "))
+            if n <= 0:
+                print("Please enter a positive integer.")
+                continue
+
+            # ... existing code ...
+
+            animate_fibonacci_primes(n, interval=100)
+            break
+
+        except ValueError:
+            print("Invalid input. Please enter an integer.")
+
+
+from matplotlib.animation import FuncAnimation
+
+
 def main():
     """Main function to execute the program."""
     while True:
