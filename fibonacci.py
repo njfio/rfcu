@@ -96,6 +96,7 @@ def main():
             print(f"Prime numbers in the sequence: {prime_numbers}")
 
             plot_fibonacci_sequence(n)
+            plot_fibonacci_spiral(fib_sequence)
             break
 
         except ValueError:
@@ -107,17 +108,3 @@ if __name__ == "__main__":
 
 import matplotlib.pyplot as plt
 import numpy as np
-
-
-def plot_fibonacci_spiral(sequence):
-    """Plot the Fibonacci sequence as a spiral."""
-    angles = np.linspace(0, np.pi * 2 * len(sequence), len(sequence))
-    x = np.cos(angles) * sequence
-    y = np.sin(angles) * sequence
-
-    plt.figure(figsize=(8, 8))
-    plt.plot(x, y, linestyle="-", color="blue")
-    plt.axis("equal")
-    plt.title("Fibonacci Spiral")
-    plt.grid(False)
-    plt.show()
