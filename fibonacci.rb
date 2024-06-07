@@ -21,6 +21,22 @@ def prime?(num)
 end
 
 # Function to count the number of primes in an array
+
+# Counts the number of prime numbers in the given array.
+#
+# The function takes an array of numbers as input and returns the count of prime numbers in the array.
+# It relies on the `prime?` helper function to determine if a number is prime.
+#
+# Parameters:
+#   arr (Array): An array of numbers.
+#
+# Returns:
+#   Integer: The count of prime numbers in the input array.
+#
+# Example:
+#   arr = [2, 3, 4, 5, 6, 7, 8, 9, 10]
+#   count = count_primes(arr)
+#   puts count  # Output: 4
 def count_primes(arr)
   arr.count { |num| prime?(num) }
 end
