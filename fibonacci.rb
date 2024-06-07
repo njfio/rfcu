@@ -25,30 +25,7 @@ def count_primes(arr)
   arr.count { |num| prime?(num) }
 end
 
-# Function to graph the Fibonacci sequence
-def graph_fibonacci(sequence)
-  require 'matplotlib'
-  x = (0...sequence.length).to_a
-  y = sequence
-  Matplotlib.plot(x, y)
-  Matplotlib.xlabel('Index')
-  Matplotlib.ylabel('Fibonacci Number')
-  Matplotlib.title('Fibonacci Sequence')
-  Matplotlib.show
-end
 
-# Function to graph the primes in the Fibonacci sequence
-def graph_primes(sequence)
-  require 'matplotlib'
-  primes = sequence.select { |num| prime?(num) }
-  x = sequence.map.with_index { |num, i| i if prime?(num) }.compact
-  y = primes
-  Matplotlib.scatter(x, y)
-  Matplotlib.xlabel('Index')
-  Matplotlib.ylabel('Prime Number')
-  Matplotlib.title('Primes in Fibonacci Sequence')
-  Matplotlib.show
-end
 
 # Main function to run the script
 def main
@@ -61,11 +38,7 @@ def main
   puts "Fibonacci sequence up to #{n} terms: #{fibonacci_sequence.join(', ')}"
   puts "Number of primes in the sequence: #{prime_count}"
 
-  # Graph the Fibonacci sequence
-  graph_fibonacci(fibonacci_sequence)
 
-  # Graph the primes in the Fibonacci sequence
-  graph_primes(fibonacci_sequence)
 end
 
 # Run the main function
@@ -76,28 +49,22 @@ main
 
 
 
+require 'gruff'
+
 # Function to graph the Fibonacci sequence
-def graph_fibonacci(sequence)
-  require 'matplotlib'
-  x = (0...sequence.length).to_a
-  y = sequence
-  Matplotlib.plot(x, y)
-  Matplotlib.xlabel('Index')
-  Matplotlib.ylabel('Fibonacci Number')
-  Matplotlib.title('Fibonacci Sequence')
-  Matplotlib.show
+def graph_fibonacci(fib_sequence)
+  g = Gruff::Line.new
+  g.title = 'Fibonacci Sequence'
+  g.data(:fibonacci, fib_sequence)
+  g.write('fibonacci_graph.png')
 end
 
-# Function to graph the primes in the Fibonacci sequence
-def graph_primes(sequence)
-  require 'matplotlib'
-  primes = sequence.select { |num| prime?(num) }
-  x = sequence.map.with_index { |num, i| i if prime?(num) }.compact
-  y = primes
-  Matplotlib.scatter(x, y)
-  Matplotlib.xlabel('Index')
-  Matplotlib.ylabel('Prime Number')
-  Matplotlib.title('Primes in Fibonacci Sequence')
-  Matplotlib.show
+# Function to graph the prime numbers
+def graph_primes(n)
+  primes = (2..n).select { |num| prime?(num) }
+  g = Gruff::Bar.new
+  g.title = 'Prime Numbers'
+  g.data(:primes, primes)
+  g.write('primes_graph.png')
 end
 
