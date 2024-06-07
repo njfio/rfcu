@@ -225,7 +225,7 @@ def animate_fibonacci_primes(n, interval=100):
 
 def animate_fibonacci_primes_fractal(n, interval=100):
     """Animate the prime numbers in the Fibonacci sequence as a fractal."""
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8, 8))
     ax.set_xlim(-1, 1)
     ax.set_ylim(-1, 1)
     ax.set_aspect("equal")
@@ -250,6 +250,12 @@ def animate_fibonacci_primes_fractal(n, interval=100):
 
     anim = FuncAnimation(fig, update, frames=n, interval=interval, blit=True)
     plt.show()
+
+
+n = 100  # Number of frames
+interval = 100  # Interval between frames in milliseconds
+
+animate_fibonacci_primes_fractal(n, interval)
 
 
 def main():
