@@ -70,6 +70,18 @@ end
 
 # Main function to run the script
 
+def prime_distances(sequence)
+  primes = sequence.select { |num| prime?(num) }
+  primes_pi = primes.map { |prime| prime * Math::PI }
+  distances = []
+
+  primes_pi.each_cons(2) do |a, b|
+    distances << b - a
+  end
+
+  [primes_pi, distances]
+end
+
 def main
   puts "Enter a number:"
   n = gets.to_i
