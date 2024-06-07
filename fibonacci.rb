@@ -49,43 +49,29 @@ main
 
 
 
-require 'gruff'
+require 'chunky_png'
 
 # Function to graph the Fibonacci sequence
-def graph_fibonacci(fib_sequence)
-  g = Gruff::Line.new
-  g.title = 'Fibonacci Sequence'
-  g.data(:fibonacci, fib_sequence)
-  g.write('fibonacci_graph.png')
+def graph_fibonacci(sequence, filename)
+  graph = ChunkyPNG::Image.new(sequence.length, sequence.max + 10, ChunkyPNG::Color::WHITE)
+
+  sequence.each_with_index do |num, index|
+    graph[index, sequence.max - num] = ChunkyPNG::Color::BLACK
+  end
+
+  graph.save(filename)
 end
 
 # Function to graph the prime numbers
-def graph_primes(n)
-  primes = (2..n).select { |num| prime?(num) }
-  g = Gruff::Bar.new
-  g.title = 'Prime Numbers'
-  g.data(:primes, primes)
-  g.write('primes_graph.png')
-end
+def graph_primes(sequence, filename)
+  primes = sequence.select { |num| prime?(num) }
+  graph = ChunkyPNG::Image.new(sequence.length, 10, ChunkyPNG::Color::WHITE)
 
+  primes.each do |prime|
+    index = sequence.index(prime)
+    graph[index, 5] = ChunkyPNG::Color::BLACK
+  end
 
-
-require 'gruff'
-
-# Function to graph the Fibonacci sequence
-def graph_fibonacci(fib_sequence)
-  g = Gruff::Line.new
-  g.title = 'Fibonacci Sequence'
-  g.data(:fibonacci, fib_sequence)
-  g.write('fibonacci_graph.png')
-end
-
-# Function to graph the prime numbers
-def graph_primes(n)
-  primes = (2..n).select { |num| prime?(num) }
-  g = Gruff::Bar.new
-  g.title = 'Prime Numbers'
-  g.data(:primes, primes)
-  g.write('primes_graph.png')
+  graph.save(filename)
 end
 
