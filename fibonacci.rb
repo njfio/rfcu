@@ -68,3 +68,24 @@ def graph_primes(n)
   g.write('primes_graph.png')
 end
 
+
+
+require 'gruff'
+
+# Function to graph the Fibonacci sequence
+def graph_fibonacci(fib_sequence)
+  g = Gruff::Line.new
+  g.title = 'Fibonacci Sequence'
+  g.data(:fibonacci, fib_sequence)
+  g.write('fibonacci_graph.png')
+end
+
+# Function to graph the prime numbers
+def graph_primes(n)
+  primes = (2..n).select { |num| prime?(num) }
+  g = Gruff::Bar.new
+  g.title = 'Prime Numbers'
+  g.data(:primes, primes)
+  g.write('primes_graph.png')
+end
+
