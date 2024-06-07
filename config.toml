@@ -4,6 +4,8 @@ max_retries = 10
 commit_message_flow = "GroqLLama38bToolAgentRepoCloud"
 documentation_flow = "LocalGoogleFlashChain"
 lint_command = "cargo fmt && cargo clippy"
+python_lint_command = "black {file_path} && isort {file_path} && pylint --fail-under 2 --exit-zero {file_path}"
+ruby_lint_command = "standardrb --fix {file_path}"
 
 
 [requests]
