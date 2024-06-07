@@ -32,7 +32,9 @@ def main():
         if user_input < 0:
             raise ValueError("The number must be non-negative.")
         sequence = fibonacci_sequence(user_input)
+        prime_count = count_primes_in_sequence(sequence)
         print(f"Fibonacci sequence up to {user_input}: {sequence}")
+        print(f"Number of prime numbers in the sequence: {prime_count}")
     except ValueError as e:
         print(f"Invalid input: {e}")
 
