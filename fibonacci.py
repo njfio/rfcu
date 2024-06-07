@@ -39,5 +39,55 @@ def main():
         print(f"Invalid input: {e}")
 
 
+import unittest
+from unittest.mock import patch
+
+from fibonacci import count_primes_in_sequence, fibonacci_sequence, main
+
+
+class TestFibonacciSequence(unittest.TestCase):
+    def test_fibonacci_sequence(self):
+        self.assertEqual(fibonacci_sequence(0), [0])
+        self.assertEqual(fibonacci_sequence(1), [0, 1, 1])
+        self.assertEqual(fibonacci_sequence(10), [0, 1, 1, 2, 3, 5, 8])
+        self.assertEqual(fibonacci_sequence(20), [0, 1, 1, 2, 3, 5, 8, 13])
+
+
+class TestCountPrimesInSequence(unittest.TestCase):
+    def test_count_primes_in_sequence(self):
+        self.assertEqual(count_primes_in_sequence([]), 0)
+        self.assertEqual(count_primes_in_sequence([0, 1, 1, 2, 3, 5, 8]), 3)
+        self.assertEqual(count_primes_in_sequence([0, 1, 1, 2, 3, 5, 8, 13]), 4)
+
+
+class TestMain(unittest.TestCase):
+    @patch("builtins.input", side_effect=["10"])
+    @patch("builtins.print")
+    def test_main_valid_input(self, mock_print, mock_input):
+        main()
+        mock_print.assert_any_call("Fibonacci sequence up to 10: [0, 1, 1, 2, 3, 5, 8]")
+        mock_print.assert_any_call("Number of prime numbers in the sequence: 3")
+
+    @patch("builtins.input", side_effect=["-5"])
+    @patch("builtins.print")
+    def test_main_negative_input(self, mock_print, mock_input):
+        main()
+        mock_print.assert_called_once_with(
+            "Invalid input: The number must be non-negative."
+        )
+
+    @patch("builtins.input", side_effect=["abc"])
+    @patch("builtins.print")
+    def test_main_invalid_input(self, mock_print, mock_input):
+        main()
+        mock_print.assert_called_once_with(
+            "Invalid input: invalid literal for int() with base 10: 'abc'"
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+
 if __name__ == "__main__":
     main()
