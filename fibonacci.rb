@@ -35,6 +35,12 @@ def main
 
   puts "Fibonacci sequence up to #{n} terms: #{fibonacci_sequence.join(', ')}"
   puts "Number of primes in the sequence: #{prime_count}"
+
+  # Graph the Fibonacci sequence
+  graph_fibonacci(fibonacci_sequence)
+
+  # Graph the primes in the Fibonacci sequence
+  graph_primes(fibonacci_sequence)
 end
 
 # Run the main function
