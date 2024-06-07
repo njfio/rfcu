@@ -1,3 +1,50 @@
+"""
+This module provides functions to generate the Fibonacci sequence up to a given number
+and count the number of prime numbers in the sequence. It also includes a main function
+to handle user input and print the results.
+
+Functions:
+- fibonacci_sequence(n: int) -> list:
+    Generate the Fibonacci sequence up to the nth number.
+
+- count_primes_in_sequence(sequence: list) -> int:
+    Count the number of prime numbers in the given sequence.
+
+- is_prime(num: int) -> bool:
+    Helper function to check if a number is prime.
+
+- main() -> None:
+    Main function to handle user input and print the Fibonacci sequence.
+
+The module also includes unit tests for the functions using the unittest module.
+The tests cover various scenarios, including valid and invalid inputs, to ensure
+the correctness of the implemented functions.
+
+Usage:
+1. Run the script directly to execute the main function and interact with the program.
+2. Import the module and use the individual functions as needed.
+
+Example:
+>>> from fibonacci import fibonacci_sequence, count_primes_in_sequence
+>>> sequence = fibonacci_sequence(10)
+>>> print(sequence)
+[0, 1, 1, 2, 3, 5, 8]
+>>> prime_count = count_primes_in_sequence(sequence)
+>>> print(prime_count)
+3
+
+Note:
+- The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum
+  of the two preceding numbers.
+- A prime number is a positive integer greater than 1 that has no positive divisors
+  other than 1 and itself.
+
+Dependencies:
+- unittest: A built-in Python module for writing and running unit tests.
+- unittest.mock: A module for creating mock objects and patching functions during testing.
+"""
+
+
 def fibonacci_sequence(n):
     """Generate the Fibonacci sequence up to the nth number."""
     sequence = []
@@ -83,10 +130,6 @@ class TestMain(unittest.TestCase):
         mock_print.assert_called_once_with(
             "Invalid input: invalid literal for int() with base 10: 'abc'"
         )
-
-
-if __name__ == "__main__":
-    unittest.main()
 
 
 if __name__ == "__main__":
