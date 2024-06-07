@@ -114,7 +114,31 @@ def count_primes(arr)
   arr.count { |num| prime?(num) }
 end
 
+require 'chunky_png'
 
+# Function to graph the Fibonacci sequence
+def graph_fibonacci(sequence, filename)
+  graph = ChunkyPNG::Image.new(sequence.length, sequence.max + 10, ChunkyPNG::Color::WHITE)
+
+  sequence.each_with_index do |num, index|
+    graph[index, sequence.max - num] = ChunkyPNG::Color::BLACK
+  end
+
+  graph.save(filename)
+end
+
+# Function to graph the prime numbers
+def graph_primes(sequence, filename)
+  primes = sequence.select { |num| prime?(num) }
+  graph = ChunkyPNG::Image.new(sequence.length, 10, ChunkyPNG::Color::WHITE)
+
+  primes.each do |prime|
+    index = sequence.index(prime)
+    graph[index, 5] = ChunkyPNG::Color::BLACK
+  end
+
+  graph.save(filename)
+end
 
 # Main function to run the script
 def main
@@ -144,29 +168,36 @@ main
 
 
 
-require 'chunky_png'
 
-# Function to graph the Fibonacci sequence
-def graph_fibonacci(sequence, filename)
-  graph = ChunkyPNG::Image.new(sequence.length, sequence.max + 10, ChunkyPNG::Color::WHITE)
 
-  sequence.each_with_index do |num, index|
-    graph[index, sequence.max - num] = ChunkyPNG::Color::BLACK
+
+
+require 'gnuplot'
+
+# Function to create a 3D plot of the Fibonacci sequence
+def plot_fibonacci_3d(sequence, filename)
+  Gnuplot.open do |gp|
+    Gnuplot::SPlot.new(gp) do |plot|
+      plot.title  "Fibonacci Sequence 3D Plot"
+      plot.xlabel "Index"
+      plot.ylabel "Fibonacci Number"
+      plot.zlabel "Height"
+
+      x = (0...sequence.length).to_a
+      y = sequence
+      z = x.map { |i| i / 10.0 }
+
+      plot.data << Gnuplot::DataSet.new([x, y, z]) do |ds|
+        ds.with = "lines"
+        ds.linewidth = 2
+      end
+    end
+
+    gp.terminal "png"
+    gp.output filename
   end
-
-  graph.save(filename)
 end
-
-# Function to graph the prime numbers
-def graph_primes(sequence, filename)
-  primes = sequence.select { |num| prime?(num) }
-  graph = ChunkyPNG::Image.new(sequence.length, 10, ChunkyPNG::Color::WHITE)
-
-  primes.each do |prime|
-    index = sequence.index(prime)
-    graph[index, 5] = ChunkyPNG::Color::BLACK
-  end
-
-  graph.save(filename)
-end
+# Plot the Fibonacci sequence in 3D
+plot_fibonacci_3d(fibonacci_sequence, 'fibonacci_3d.png')
+puts "Fibonacci sequence plotted in 3D and saved as 'fibonacci_3d.png'."
 
