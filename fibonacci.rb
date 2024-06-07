@@ -92,13 +92,9 @@ def main
   puts "Fibonacci sequence up to #{n} terms: #{fibonacci_sequence.join(", ")}"
   puts "Number of primes in the sequence: #{prime_count}"
 
-  # Graph the Fibonacci sequence
-  graph_fibonacci(fibonacci_sequence, "fibonacci.png")
-  puts "Fibonacci sequence graphed and saved as 'fibonacci.png'."
-
-  # Graph the prime numbers in the sequence
-  graph_primes(fibonacci_sequence, "primes.png")
-  puts "Prime numbers in the sequence graphed and saved as 'primes.png'."
+  primes_pi, distances = prime_distances(fibonacci_sequence)
+  puts "Primes multiplied by PI: #{primes_pi.join(", ")}"
+  puts "Distances between consecutive primes multiplied by PI: #{distances.join(", ")}"
 end
 
 # Run the main function
