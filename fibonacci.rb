@@ -72,6 +72,34 @@
 #   fib_seq = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 #   graph_primes(fib_seq, 'primes.png')
 
+
+
+# Calculates the Fibonacci sequence up to n terms.
+#
+# The function takes an integer n as input and returns an array containing the Fibonacci sequence up to n terms.
+# The Fibonacci sequence starts with 0 and 1, and each subsequent number is the sum of the two preceding numbers.
+#
+# Parameters:
+#   n (Integer): The number of terms in the Fibonacci sequence to calculate.
+#
+# Returns:
+#   Array: The Fibonacci sequence up to n terms.
+#
+# Example:
+#   fib_seq = fibonacci(10)
+#   puts fib_seq  # Output: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+def fibonacci(n)
+  return [] if n <= 0
+  return [0] if n == 1
+  return [0, 1] if n == 2
+
+  fib = [0, 1]
+  (2...n).each do |i|
+    fib << fib[-1] + fib[-2]
+  end
+  fib
+end
+
 def fibonacci(n)
   return [] if n <= 0
   return [0] if n == 1
@@ -195,40 +223,4 @@ end
 main
 
 
-
-
-
-
-
-
-
-
-require 'gnuplot'
-
-# Function to create a 3D plot of the Fibonacci sequence
-def plot_fibonacci_3d(sequence, filename)
-  Gnuplot.open do |gp|
-    Gnuplot::SPlot.new(gp) do |plot|
-      plot.title  "Fibonacci Sequence 3D Plot"
-      plot.xlabel "Index"
-      plot.ylabel "Fibonacci Number"
-      plot.zlabel "Height"
-
-      x = (0...sequence.length).to_a
-      y = sequence
-      z = x.map { |i| i / 10.0 }
-
-      plot.data << Gnuplot::DataSet.new([x, y, z]) do |ds|
-        ds.with = "lines"
-        ds.linewidth = 2
-      end
-    end
-
-    gp.terminal "png"
-    gp.output filename
-  end
-end
-# Plot the Fibonacci sequence in 3D
-plot_fibonacci_3d(fibonacci_sequence, 'fibonacci_3d.png')
-puts "Fibonacci sequence plotted in 3D and saved as 'fibonacci_3d.png'."
 
